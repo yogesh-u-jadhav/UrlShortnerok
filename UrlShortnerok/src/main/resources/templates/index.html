@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #E3F2FD; /* Light Blue */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        /* Container for the form */
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            border: 2px solid #4CAF50; /* Green border for a fresh, clean look */
+        }
+
+        /* Heading */
+        h1 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* Input styles */
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            color: #333;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #0288D1; /* Dark Blue on focus */
+        }
+
+        /* Button styles */
+        button {
+            padding: 15px 30px;
+            border: none;
+            background-color: #FF5722; /* Orange-Red */
+            color: white;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #D32F2F; /* Darker Red on hover */
+        }
+
+        /* Result and error message styling */
+        .result, .error {
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+
+        .result {
+            color: #4CAF50; /* Green for success */
+        }
+
+        .error {
+            color: #F44336; /* Red for errors */
+        }
+
+        .result a {
+            color: #0288D1; /* Dark Blue for links */
+            text-decoration: none;
+        }
+
+        .result a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>URL Shortener</h1>
+    <form action="/shorten" method="post">
+        <input type="text" name="originalUrl" placeholder="Enter your URL" required>
+        <button type="submit">Shorten URL</button>
+    </form>
+
+    <!-- Display the shortened URL -->
+    <div class="result" th:if="${shortUrl}">
+        <p>Shortened URL: <a th:href="@{'/api/url/' + ${shortUrl}}" th:text="'/api/url/' + ${shortUrl}"></a></p>
+    </div>
+
+    <!-- Display error message -->
+    <div class="error" th:if="${error}">
+        <p th:text="${error}"></p>
+    </div>
+</div>
+
+</body>
+</html>
